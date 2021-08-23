@@ -43,6 +43,7 @@ export interface NotionRendererProps {
 
   blockId?: string
   hideBlockId?: boolean
+  disableZoom?: boolean
 }
 
 interface NotionBlockRendererProps {
@@ -72,6 +73,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   defaultPageIcon,
   defaultPageCover,
   defaultPageCoverPosition,
+  disableZoom,
   ...rest
 }) => {
   const zoom =
@@ -100,6 +102,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}
       zoom={zoom}
+      disableZoom={disableZoom}
     >
       <NotionBlockRenderer {...rest} />
     </NotionContextProvider>
