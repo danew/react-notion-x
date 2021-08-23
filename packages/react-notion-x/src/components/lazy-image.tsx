@@ -14,7 +14,7 @@ export const LazyImage: React.FC<{
   height?: number
   zoomable?: boolean
 }> = ({ src, alt, className, style, zoomable = false, height, ...rest }) => {
-  const { recordMap, zoom, previewImages } = useNotionContext()
+  const { recordMap, zoom, previewImages, disableZoom } = useNotionContext()
 
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)
   const previewImage = previewImages
@@ -27,7 +27,7 @@ export const LazyImage: React.FC<{
     }
   }
 
-  const attachZoomRef = zoomable ? attachZoom : undefined
+  const attachZoomRef = zoomable && !disableZoom ? attachZoom : undefined
 
   if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
@@ -62,7 +62,10 @@ export const LazyImage: React.FC<{
                 src={previewImage.dataURIBase64}
                 alt={alt}
                 ref={ref}
-                className='lazy-image-preview'
+                className={cs(
+                  'lazy-image-preview',
+                  disableZoom && 'medium-zoom-image--disabled'
+                )}
                 style={style}
                 width={previewImage.originalWidth}
                 height={previewImage.originalHeight}
@@ -73,7 +76,10 @@ export const LazyImage: React.FC<{
                 src={src}
                 alt={alt}
                 ref={attachZoomRef}
-                className='lazy-image-real'
+                className={cs(
+                  'lazy-image-real',
+                  disableZoom && 'medium-zoom-image--disabled'
+                )}
                 style={{
                   ...style,
                   ...imgStyle
@@ -93,7 +99,10 @@ export const LazyImage: React.FC<{
     // invalid images from loading as error states
     return (
       <img
-        className={className}
+        className={cs(
+          className,
+          disableZoom && 'medium-zoom-image--disabled'
+        )}
         style={style}
         src={src}
         ref={attachZoomRef}

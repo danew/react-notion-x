@@ -31,6 +31,7 @@ export interface NotionContext {
   defaultPageCoverPosition?: number
 
   zoom: any
+  disableZoom: boolean
 }
 
 export interface PartialNotionContext {
@@ -56,6 +57,7 @@ export interface PartialNotionContext {
   defaultPageCoverPosition?: number
 
   zoom?: any
+  disableZoom?: boolean
 }
 
 const DefaultLink: React.SFC = (props) => (
@@ -118,7 +120,8 @@ const defaultNotionContext: NotionContext = {
   defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
 
-  zoom: null
+  zoom: null,
+  disableZoom: false
 }
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)

@@ -246,6 +246,10 @@
   border-radius: 0;
 }
 
+.medium-zoom-image--disabled {
+  cursor: default;
+}
+
 .medium-zoom-image--opened {
   z-index: 301;
 }
